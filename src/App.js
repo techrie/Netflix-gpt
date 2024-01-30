@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Body from "./components/Body";
 import Browse from "./components/Browse";
 import Login from "./components/Login";
 
@@ -14,11 +13,8 @@ function App() {
       element: <Browse />,
     },
   ]);
-  return (
-    <RouterProvider router={appRouter}>
-      <Body />;
-    </RouterProvider>
-  );
+
+  return <RouterProvider router={appRouter}>{/* <Body /> */}</RouterProvider>;
 }
 
 export default App;

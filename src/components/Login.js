@@ -1,10 +1,21 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -13,14 +24,74 @@ const Login = () => {
   const handleButtonClick = () => {
     //Validate the email and password
 
-    console.log(email.current.value, password.current.value);
-    const message = checkValidData(
-      name.current.value,
-      email.current.value,
-      password.current.value
-    );
+    // console.log(email.current.value, password.current.value);
+    const message = checkValidData(email.current.value, password.current.value);
     console.log(message);
     setErrorMessage(message);
+
+    if (message) return;
+
+    if (!isSignIn) {
+      //Sign Up Logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL:
+              "https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e",
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
+
+          console.log(user);
+          // navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "---" + errorMessage);
+          // ..
+        });
+    } else {
+      //Sign In Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // navigate("/browse");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "---" + errorMessage);
+        });
+    }
   };
 
   const toggleSignIn = () => {
