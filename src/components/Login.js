@@ -9,7 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
-import { BG_PIC, USER_AVATAR } from "../utils/constants";
+import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -23,9 +23,8 @@ const Login = () => {
   const handleButtonClick = () => {
     //Validate the email and password
 
-    // console.log(email.current.value, password.current.value);
     const message = checkValidData(email.current.value, password.current.value);
-    console.log(message);
+
     setErrorMessage(message);
 
     if (message) return;
@@ -60,8 +59,6 @@ const Login = () => {
             .catch((error) => {
               setErrorMessage(error.message);
             });
-
-          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -78,7 +75,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -95,7 +91,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img className="" src={BG_PIC} alt="background" />
+        <img className="" src={BG_URL} alt="background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
