@@ -7,7 +7,7 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { LOGO, SUGGESTED_LANGUAGES } from "../utils/constants";
-import { toggleGPTSearchView } from "../utils/gptSlice";
+import { clearGPTResults, toggleGPTSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
@@ -52,6 +52,7 @@ const Header = () => {
   const handleButtonSearch = () => {
     //Toggle GPT Search
     dispatch(toggleGPTSearchView());
+    dispatch(clearGPTResults());
   };
 
   const handleLanguageChange = (e) => {
@@ -59,10 +60,10 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-36" src={LOGO} alt="logo" />
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between ">
+      <img className="w-36 mx-auto md:mx-0" src={LOGO} alt="logo" />
       {user && (
-        <div className="flex p-2 items-center">
+        <div className="flex p-2 items-center justify-between">
           {showGPTSearch && (
             <select
               className="px-2 py-1 m-2 bg-gray-900 text-white"
@@ -76,12 +77,16 @@ const Header = () => {
             </select>
           )}
           <button
-            className="px-2  py-1 mx-4 my-2 bg-purple-800 font-normal text-white rounded-lg"
+            className="px-2 py-1 mx-4 my-2 bg-purple-800 font-normal text-white rounded-lg"
             onClick={handleButtonSearch}
           >
             {showGPTSearch ? "HomePage" : "GPTSearch"}
           </button>
-          <img className="w-8 h-8" src={user?.photoURL} alt="avatar_logo" />
+          <img
+            className="hidden md:block w-8 h-8"
+            src={user?.photoURL}
+            alt="avatar_logo"
+          />
           <button
             className="font-normal text-white cursor-pointer "
             onClick={handleSignOut}

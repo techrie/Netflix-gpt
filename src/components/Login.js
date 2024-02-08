@@ -91,13 +91,17 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img className="" src={BG_URL} alt="background" />
+        <img
+          className="h-screen w-screen object-cover md:h-screen"
+          src={BG_URL}
+          alt="background"
+        />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute p-12 bg-black w-3/12 mx-auto  my-36 right-0 left-0 text-white rounded-lg bg-opacity-80"
+        className="absolute p-10 md:p-11 bg-black w-full md:w-3/12 mx-auto my-20 md:my-30 right-0 left-0 text-white rounded-lg bg-opacity-80"
       >
-        <h1 className="font-bold text-3xl py-2">
+        <h1 className="font-bold text-xl md:text-3xl py-2">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignIn && (
@@ -122,7 +126,7 @@ const Login = () => {
         />
         <p className="text-red-500 text-sm">{errorMessage}</p>
         <button
-          className="p-2 my-4 w-full bg-red-700 rounded-sm "
+          className="p-2 my-2 md:my-4 w-full bg-red-700 rounded-sm "
           onClick={handleButtonClick}
         >
           {isSignIn ? "Sign In" : "Sign Up"}
