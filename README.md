@@ -1,17 +1,17 @@
-### Features
-    Login/Sign Up
-        Sign In /Sign up Form  
-        redirect to Browse Page
-    Browse (after authentication)
-        Header
-        Main Movie
-            Tailer in Background
-            Title & Description
-            MovieSuggestions
-                MovieLists * N
-    NetflixGPT
-        Search Bar
-        Movie Suggestions  
+## Features
+  - Login/Sign Up
+      - Sign In /Sign up Form  
+      - redirect to Browse Page
+  - Browse (after authentication)
+      - Header
+      - Main Movie
+          - Trailer in Background
+          -  Title & Description
+          -  MovieSuggestions
+              - MovieLists * N
+  - NetflixGPT
+      - Search Bar
+      - Movie Suggestions  
 
 ## 👨🏻‍💻Tech choices
   - ReactJS (scaffolded with CRA)
@@ -61,7 +61,7 @@
   - usePopularMovies Custom hook
   - GPT Search Page
   - GPT Search Bar
-  - (BONUS) Multi-language Feature in our App)
+  - Multi-language Feature
   - Get Open AI Api Key 
   - Gpt Search API Call
   - fetched gptMoviesSuggestions from TMDB
