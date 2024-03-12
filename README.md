@@ -1,5 +1,5 @@
 ### Features
-### Login/Sign Up
+    Login/Sign Up
         Sign In /Sign up Form  
         redirect to Browse Page
     Browse (after authentication)
@@ -22,7 +22,7 @@
   - Routing using React-router-dom
 
 
-### Netflix GPT:
+
 ## 💡Development sequence
   - Create React App
   - Configured TailwindCSS 
